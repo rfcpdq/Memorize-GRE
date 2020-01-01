@@ -2,17 +2,18 @@
 
 import os
 import pandas as pd
+from cfg_parser import paraConfig
 
 
 class file(object):
     def __init__(self):
         self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
         os.chdir(self.PATH)
-        self.col = ["word", "etymonline", "emeaning", "cmeaning"]
-        self.default_name = 'C.csv'  # default file to be open
-
-    # def load_cfg(self):
-    #     return default_name
+        # load cfg
+        cfg_name = paraConfig().main_cfg()
+        self.cfg = paraConfig(cfg_name, section=0).get_cfg()
+        self.col = self.cfg['col']
+        self.default_name = self.cfg['default_name']
 
     def load_data(self, name=0):
         if name == 0:

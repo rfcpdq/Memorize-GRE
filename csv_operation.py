@@ -13,6 +13,6 @@ source.word = source.word.apply(lambda x: x.split(' ')[-1])
 source.word = source.word.apply(lambda x: x.split('\n')[0])
 
 source.to_csv(PATH + '/inputs/' + 'B_.csv',
-              mode='w', header=False, index=False, encoding='utf-8')
+              mode='r', header=False, index=False, encoding='utf-8')
 
 print('Done!')

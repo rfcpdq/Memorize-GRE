@@ -3,6 +3,7 @@ import pandas as pd
 from textblob import Word
 from data_utils import file
 from tools import display
+# from cfg_parser import paraConfig
 
 
 class spell(object):

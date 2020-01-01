@@ -1,86 +1,82 @@
-# Memorize-GRE
+v 0.80
+
+# Git
+
+https://www.runoob.com/w3cnote/git-five-minutes-tutorial.html
+
+https://git-scm.com/docs
+
+https://www.runoob.com/git/git-tutorial.html
+
+https://www.liaoxuefeng.com/wiki/896043488029600
+
+```
+git commit -a -m "Changed some files"
+git push https://github.com/rfcpdq/Jupyter-Note
+git config credential.helper store
+```
+
+## LF and CRLF
+https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
+
+```
+git config core.autocrlf true
+git config --global core.autocrlf true
+```
 
 
 
-## About this project
+# TODO
 
-When memorizing the GRE vocabulary, I believe we (as a foreigner), should understand the vocabulary by their meanings first.
+## Next step
 
-This project is a unfinished version. I write this to satisfy my personal need, and this repository may not get future update.
-
-Have a good day!
-
-
-
-What I want: 
-
-- [x] Take personal notes on each vocabulary 
-
-- [x] Each CSV file corresponds to a vocabulary book(in this repository we only have inputs/C.csv). Automatically fill in duplicate words when working on a new vocabulary book (inputs/B.csv). 
-
-- [x] Review vocabulary on cell phone (Android) & desktop (Linux / Windows) 
-
-- [x] Merge all CSV into one final file 
-
-- [x] Simple spell check (python3 textblob, though... not accurate)
+- [x] Let's start with single csv data import, split the code first
+- [x] Then config file
+- [x] Then write one merge into one database code
+  - [ ] Enhance merge Func to maintain (not rewrite) 
+- [x] Spell checker
+- [ ] Edit Func
+- [ ] Searching Func
+- [x] Separate load / sav function !!!
+- [x] Flash card review
+- [ ] 思考等价词咋搞（800词是词对），可能需要一个Add的功能
 
 
 
-## Screenshot
 
-Review on computer
+## Function
 
-<img src="./demo/02.png" alt="computer" />
-
-
-
-Review on phone (Android Pydroid 3)
-
-<img src="./demo/01.jpg" alt="phone" style="zoom:33%;" />
-
-
-
-Typing with software (see /demo/03.mp4)
-
-<img height=320 src="./demo/03.gif" />
-
-## Usage
-
-### Along side with third-party vocabulary software
-
-Need abd
-
-See screen coordinates in tools.py def adb_func(move), 
-
-- my phone: one plus 7, 
-
-- third-party vocabulary software: 
-  - https://www.kmf.com/static/appcenter?website=gre
-  - https://play.google.com/store/apps/details?id=com.enhance.google.greapp (older version)
+- [ ] 一个删除mistyping的code，将其加入缓存区
+- [x] 将code分散在几个不同的python文件里，方便查找
+- [x] 加一个批量复习，如rev6对应xxx部分的内容，自动识别
+  - [x] 'rev_i' and then input numbers
+  - [x] number of each cycle (100 / 120 for example) is in cfg file
+- [x] 一个生词库(after merge)
+- [ ] Add column function (忘记次数、词汇来源csv、遗忘曲线信息等)
+- [ ] Color for can't remember words
+- [ ] Auto fill in (win and linux are different)
+- [ ] Random Greeting Function - pending
+- [x] Requirement.txt
 
 
+# The Project Goal
 
-### Function names and Config
+## Let's start with single csv data import
 
-**Still in progress**
+I have plenty csv files to edit: 大3000 / 800词 / 生词 etc.
 
-See `main.py` and `phone_rev.py` for detailed information.
+When edit, I want to check whether the vocabulary exit in any signle database (the vocabulary may exist in many csv files => have order A.csv > B.csv) or not
 
-Input will be storage in `inputs/B.csv`. If the vocabulary you insert is in `inputs/C.csv`, it will automatically fill in (see /demo/03.mp4).
-
-
-
-### Review (Computer)
-
-Input `rev` will return last 10 words
-
-Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
-
-Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
+And I will choose which one is the output (C.csv for example)
 
 
+## Full database
 
-### Review (Android Phone)
+One single data base, contain all vocabulary I need
 
-- Install git in `Termux`
-- Run `phone_rev.py` (or other code) in `Pydroid3`
+
+## Review
+
+直接看CSV给我一种想不起意思的感觉
+
+libreoffice可以检查拼写错误（快速扫一眼，不当作复习来做），但是复习还是用code来复习快一些

@@ -4,6 +4,7 @@ from termcolor import colored, cprint
 from math import ceil
 from tools import display, adb_func
 from data_utils import file
+from cfg_parser import paraConfig
 
 
 class func(object):
@@ -11,12 +12,15 @@ class func(object):
         self.source = source
         self.target = target
         self.empty = file().empty()
-        # should be pass by data_import in the future
         self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-        self.col = ["word", "etymonline", "emeaning", "cmeaning"]
-        self.out_name = 'B.csv'
-        self.use_adb = True
-        self.back_i = 0  # for back up func
+        # load cfg
+        cfg_name = paraConfig().main_cfg()
+        self.cfg1 = paraConfig(cfg_name, section=0).get_cfg()
+        self.cfg2 = paraConfig(cfg_name, section=1).get_cfg()
+        self.col = self.cfg1['col']
+        self.out_name = self.cfg2['out_name']
+        self.use_adb = self.cfg2['use_adb']
+        self.back_i = self.cfg2['back_i']
 
     def def_func(self, x):
         if x in self.source.word.values:
