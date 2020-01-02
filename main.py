@@ -26,6 +26,7 @@ print('Default config: ', cfg_name)
 
 cfg = paraConfig(cfg_name, section=1).get_cfg()
 out_name = cfg['out_name']
+use_adb = cfg['use_adb']
 cprint('\n==================================\n', 'magenta')
 
 
