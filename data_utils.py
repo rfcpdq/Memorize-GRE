@@ -14,6 +14,7 @@ class file(object):
         self.cfg = paraConfig(cfg_name, section=0).get_cfg()
         self.col = self.cfg['col']
         self.default_name = self.cfg['default_name']
+        # print(self.default_name)
 
     def load_data(self, name=0):
         if name == 0:
@@ -32,7 +33,17 @@ class file(object):
 
     def list_file(self):
         file_list = []
-        for file in os.listdir():
-            if file[0] != 'A' and file[-3:] == 'csv':
+        for file in os.listdir('./inputs'):
+            if file != self.default_name and file[-3:] == 'csv':
                 file_list.append(file)
         return file_list
+
+    def list_csv(self):
+        file_list = []
+        for file in os.listdir():
+            if file != 'config_main.cfg' and file[-3:] == 'cfg':
+                file_list.append(file)
+        return file_list
+
+# print(file().list_file())
+# print(file().list_csv())

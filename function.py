@@ -99,7 +99,7 @@ class func2(object):
         self.source = source
         self.total_len = len(source.index)
 
-    def rev_func(self, rev_start, rev_end, banner = True):
+    def rev_func(self, rev_start, rev_end, banner=True):
         if banner == True:
             rev_print = '|| Start: ' + \
                 str(rev_start + 1) + '  End: ' + str(rev_end) + ' ||'
@@ -132,8 +132,9 @@ class func2(object):
         cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
         print('\n')
 
-    def rev_custom(self, rev_prosition, block = 60):
+    def rev_custom(self, rev_prosition, block=60):
         # rev 60 words each time, print review precision (12/15)
+        # rev_prosition minimum = 1 !!!
         loop = int(block / 10)
         rev_prosition = int(rev_prosition)
         self.show_position(block, rev_prosition)
@@ -166,9 +167,10 @@ class func2(object):
             self.rev_func(rev_start, rev_end)
             cprint('==================================\n', 'magenta')
 
-    def rev_flashcard(self, rev_prosition, block = 30, flashcard = 1):
+    def rev_flashcard(self, rev_prosition, block=30, flashcard=1):
         # rev '30' words each time, print review precision (12/15)
         # flashcard shows 1 word by default
+        # rev_prosition minimum = 1 !!!
         rev_prosition = int(rev_prosition)
         self.show_position(block, rev_prosition)
 
@@ -186,7 +188,8 @@ class func2(object):
         else:
             rev_sec_left = self.total_len - (rev_prosition - 1) * block
             for i in range(rev_sec_left):
-                part_process = 'Prosition:' + str(i + 1) + '/' + str(rev_sec_left)
+                part_process = 'Prosition:' + \
+                    str(i + 1) + '/' + str(rev_sec_left)
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
                 rev_start = (i + (rev_prosition - 1) * block) * flashcard
                 rev_end = rev_start + flashcard

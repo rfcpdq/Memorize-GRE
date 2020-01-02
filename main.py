@@ -8,6 +8,8 @@ from data_utils import file
 from function import func, func2
 from tools import adb_func, clear
 from cfg_parser import paraConfig
+from merge import merge
+
 
 # Greeting
 from pyfiglet import Figlet
@@ -17,10 +19,15 @@ print(custom_fig.renderText('Hi There!'))
 source = file().load_data()
 target = file().empty()
 
+
 # load config
 cfg_name = paraConfig().main_cfg()
+print('Default config: ', cfg_name)
+
 cfg = paraConfig(cfg_name, section=1).get_cfg()
 out_name = cfg['out_name']
+cprint('\n==================================\n', 'magenta')
+
 
 start = True
 while start:
@@ -46,13 +53,15 @@ while start:
     #     cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
 
     # ===== save / backup =====
-    elif x in ['save', 'sav']:
+    elif x in ['sav', 'sav2']:  # sav2: just save, don't no review
         clear()
         target = func(source, target).save_func()
-        source_2 = file().load_data(out_name)
-        func2(source_2).rev_func(0, 10)
-        cprint('Save Done!', 'white', 'on_magenta', attrs=['bold'])
+        # minium review number is 10!
         if x == 'sav':
+            source_2 = file().load_data(out_name)
+            func2(source_2).rev_custom(1, 10)
+        cprint('Save Done!', 'white', 'on_magenta', attrs=['bold'])
+        if x == 'sav' and use_adb == True:
             adb_func('next')
 
     elif x == 'back':
@@ -61,11 +70,11 @@ while start:
         cprint(back_name, 'Backup Done!', 'white',
                'on_magenta', attrs=['bold'])
 
-    # ===== review =====
+    # ===== review (start with '1') =====
     elif x == 'rev':
         clear()
         source_2 = file().load_data(out_name)
-        func2(source_2).rev_func(0, 10)
+        func2(source_2).rev_custom(1, 10)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'r-':
@@ -93,6 +102,9 @@ while start:
         cprint('Pleace Enter Again!\n', 'red', attrs=['bold'])
         continue
 
+    elif x == 'merge':
+        merge().merge_all()
+        
     else:
         target = func(source, target).def_func(x)
 
