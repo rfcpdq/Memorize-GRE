@@ -37,7 +37,7 @@ Review on computer
 
 Review on phone (Android Pydroid 3)
 
-<img src="./demo/01.jpg" alt="phone" style="zoom:33%;" />
+<img src="./demo/01.jpg" alt="phone" width="35%" />
 
 
 
