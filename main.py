@@ -7,7 +7,7 @@ from termcolor import cprint
 from data_utils import file
 from function import func, func2
 from tools import adb_func, clear
-from cfg_parser import paraConfig
+from config.cfg_parser import paraConfig
 from merge import merge
 
 
@@ -105,7 +105,7 @@ while start:
 
     elif x == 'merge':
         merge().merge_all()
-        
+
     else:
         target = func(source, target).def_func(x)
 

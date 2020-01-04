@@ -13,6 +13,8 @@ class MyConfigParser(configparser.ConfigParser):
 
 class paraConfig(object):
     def __init__(self, conf_f='config_A.cfg', section=0, updatePara={}):
+        self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+        os.chdir(self.PATH)
         self.cp = MyConfigParser()
         # print("Loading config file:", conf_f, ".................")
         self.cp.read(conf_f)
@@ -59,3 +61,6 @@ class paraConfig(object):
         self.cfg = paraConfig('config_main.cfg').get_cfg()
         self.cfg_name = self.cfg['cfg_name']
         return self.cfg_name
+
+
+# print(paraConfig().main_cfg())

@@ -4,7 +4,7 @@ from termcolor import colored, cprint
 from math import ceil
 from tools import display, adb_func
 from data_utils import file
-from cfg_parser import paraConfig
+from config.cfg_parser import paraConfig
 
 
 class func(object):

@@ -2,7 +2,7 @@
 
 import os
 import pandas as pd
-from cfg_parser import paraConfig
+from config.cfg_parser import paraConfig
 
 
 class file(object):

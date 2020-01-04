@@ -1,6 +1,4 @@
 # Merge csv files
-# Just merge B and C for now
-# We will merge all data in A.csv and keep updated in future!
 # https://stackoverflow.com/questions/50885093/how-do-i-remove-rows-with-duplicate-values-of-columns-in-pandas-data-frame
 # https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/
 
@@ -8,7 +6,7 @@
 import os
 import pandas as pd
 from data_utils import file
-from cfg_parser import paraConfig
+from config.cfg_parser import paraConfig
 
 
 class merge(object):
@@ -64,5 +62,5 @@ class merge(object):
 
 
 # merge().merge()
-merge().merge_all()
-# merge().remove_duplicate()
+# merge().merge_all()
+merge().remove_duplicate()
