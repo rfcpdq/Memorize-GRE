@@ -58,33 +58,43 @@ Typing with software (see /demo/03.mp4)
 
 Need abd
 
-See screen coordinates in tools.py def adb_func(move), 
+You can modify Android screen coordinates in `tools.py` `adb_func(move)`
 
-- my phone: one plus 7, 
+- my phone: one plus 7
 
-- third-party vocabulary software: 
+- third-party vocabulary software in demo: 
   - https://www.kmf.com/static/appcenter?website=gre
   - https://play.google.com/store/apps/details?id=com.enhance.google.greapp (older version)
 
 
 
-### Function names and Config
+### Function names and Config explain
 
 **Still in progress**
 
-See `main.py` and `phone_rev.py` for detailed information.
+See `main.py` and `phone_rev.py` for detail information
 
-Input will be storage in `inputs/B.csv`. If the vocabulary you insert is in `inputs/C.csv`, it will automatically fill in (see /demo/03.mp4).
+In `config_B.cfg`:
+```
+[data_utils]
+col = list: ["word", "etymonline", "emeaning", "cmeaning"]  # your csv structure
+# file used to check duplicate
+default_name = str: All.csv  # if input a word occur in this csv, it will auto copy to your woking csv
+
+[function]
+out_name = str: Reading-GRE.csv  # the book you currently working on
+use_adb = bool: False
+# for back up func
+back_i = int: 0
+```
 
 
 
 ### Review (Computer)
 
-Input `rev` will return last 10 words
-
-Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
-
-Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
+- Input `rev` will return last 10 words, you can change block in `main.py`
+- Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
+- Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
 
 
 
