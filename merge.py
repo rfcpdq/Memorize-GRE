@@ -63,4 +63,4 @@ class merge(object):
 
 # merge().merge()
 # merge().merge_all()
-merge().remove_duplicate()
+# merge().remove_duplicate()

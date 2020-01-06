@@ -15,6 +15,7 @@ def display(lista):
     lista = lista.astype(str)
     lista = [el.replace('\xa0', ' ') for el in lista]
     lista = [el.replace('\n', ' ') for el in lista]
+    lista = [el.replace('\r', ' ') for el in lista]
     return lista
 
 
@@ -35,6 +36,9 @@ def adb_func(move):
         time.sleep(1)
         cmdCommand = "adb shell input tap 270 2155"
         # cmdCommand = "adb shell input tap 270 2230"
+    # pronunce
+    if move == 'p':
+        cmdCommand = "adb shell input tap 500 900"
     # review
     if move == '1':
         cmdCommand = "adb shell input tap 760 1990"

@@ -22,7 +22,7 @@ class func(object):
         self.use_adb = self.cfg2['use_adb']
         self.back_i = self.cfg2['back_i']
 
-    def def_func(self, x):
+    def def_func(self, x, custom=False):
         if x in self.source.word.values:
             print(display(self.source.loc[self.source.word == x].etymonline))
             print(display(self.source.loc[self.source.word == x].emeaning))
@@ -99,7 +99,7 @@ class func2(object):
         self.source = source
         self.total_len = len(source.index)
 
-    def rev_func(self, rev_start, rev_end, banner=True):
+    def rev_func(self, rev_start, rev_end, banner=True, custom=False):
         if banner == True:
             rev_print = '|| Start: ' + \
                 str(rev_start + 1) + '  End: ' + str(rev_end) + ' ||'
@@ -110,7 +110,7 @@ class func2(object):
 
         for i in range(rev_start + 1, rev_end + 1):
             x = self.source.word.iloc[-i]
-            if x in self.source.word.values:
+            if x in self.source.word.values and custom == False:
                 cprint(display(self.source.loc[self.source.word == x].word), 'red', attrs=[
                        'bold', 'underline'])
                 print(

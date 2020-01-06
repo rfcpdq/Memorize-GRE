@@ -45,4 +45,4 @@ class spell(object):
         file().save_csv(incorrect_list, 'B_.csv')
 
 
-print(spell().spell_check_all())
+# print(spell().spell_check_all())

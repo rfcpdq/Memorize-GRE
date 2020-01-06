@@ -7,7 +7,7 @@ from termcolor import cprint
 from data_utils import file
 from function import func, func2
 from tools import adb_func, clear
-from config.cfg_parser import paraConfig
+from config.cfg_parser import paraConfig, update_cfg
 from merge import merge
 
 
@@ -16,13 +16,12 @@ from pyfiglet import Figlet
 custom_fig = Figlet(font='contessa')  # italic / contessa / basic
 print(custom_fig.renderText('Hi There!'))
 
+# Choose Config
+update_cfg().change_main_cfg()
+
 source = file().load_data()
 target = file().empty()
-
-
-# load config
 cfg_name = paraConfig().main_cfg()
-print('Default config: ', cfg_name)
 
 cfg = paraConfig(cfg_name, section=1).get_cfg()
 out_name = cfg['out_name']
@@ -91,7 +90,7 @@ while start:
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     # ===== adb =====
-    elif x in ['n', 'b', 'next', 'next2', '1', '2']:
+    elif x in ['n', 'b', 'next', 'next2', 'p', '1', '2']:
         adb_func(x)
         cprint('\n')
         continue

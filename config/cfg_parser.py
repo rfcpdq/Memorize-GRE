@@ -12,7 +12,7 @@ class MyConfigParser(configparser.ConfigParser):
 
 
 class paraConfig(object):
-    def __init__(self, conf_f='config_A.cfg', section=0, updatePara={}):
+    def __init__(self, conf_f='0_kmf.cfg', section=0, updatePara={}):
         self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
         os.chdir(self.PATH)
         self.cp = MyConfigParser()
@@ -60,7 +60,49 @@ class paraConfig(object):
     def main_cfg(self):
         self.cfg = paraConfig('config_main.cfg').get_cfg()
         self.cfg_name = self.cfg['cfg_name']
+        # print('Default:', self.cfg_name)
         return self.cfg_name
 
 
+class update_cfg(object):
+    def __init__(self):
+        self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+        os.chdir(self.PATH)
+
+    def list_cfg(self):
+        file_list = []
+        for file in os.listdir():
+            if file != 'config_main.cfg' and file[-3:] == 'cfg':
+                file_list.append(file)
+        return file_list
+
+    def change_main_cfg(self):
+        cfg = configparser.ConfigParser()
+        cfg.read('config_main.cfg')
+
+        self.cfg_list = self.list_cfg()
+        print('Choose config file [0~n]:', self.cfg_list)
+        x = input() or ''
+        # x = 2
+        if x != '':
+            x = int(x)
+            self.cfg_name = self.cfg_list[x]
+            self.write = 'str: ' + self.cfg_name
+
+        cfg.set('main', 'cfg_name', self.write)
+        with open('config_main.cfg', 'w') as configfile:
+            cfg.write(configfile)
+
+        csv_print = '|| Configuration file updated: ' + \
+            self.cfg_name + ' ||'
+
+        print('\n')
+        print('=' * len(csv_print))
+        print(csv_print)
+        print('=' * len(csv_print))
+
+        # return self.cfg_name
+
+
 # print(paraConfig().main_cfg())
+# update_cfg().change_main_cfg()

@@ -16,34 +16,33 @@ class file(object):
         self.default_name = self.cfg['default_name']
         # print(self.default_name)
 
-    def load_data(self, name=0):
+    def load_data(self, name=0, folder=1):
         if name == 0:
             name = self.default_name
-        source = pd.read_csv(self.PATH + '/inputs/' +
+        csv_dir = '/inputs/'
+        if folder != 1:
+            csv_dir = csv_dir + str(folder)
+        source = pd.read_csv(self.PATH + csv_dir +
                              name, encoding='utf-8')
         return source
 
-    def save_csv(self, target, out_name):
-        target.to_csv(self.PATH + '/inputs/' + out_name,
+    def save_csv(self, target, out_name, folder=1):
+        csv_dir = '/inputs/'
+        if folder != 1:
+            csv_dir = csv_dir + str(folder)
+        target.to_csv(self.PATH + csv_dir + out_name,
                       mode='a', header=False, index=False, encoding='utf-8')
 
     def empty(self):
         empty = pd.DataFrame(columns=self.col)
         return empty
 
-    def list_file(self):
+    def list_file(self, folder=1):
         file_list = []
-        for file in os.listdir('./inputs'):
+        csv_dir = '../inputs'
+        if folder != 1:  # folder=1 => inputs2
+            csv_dir = csv_dir + str(folder)
+        for file in os.listdir(csv_dir):
             if file != self.default_name and file[-3:] == 'csv':
                 file_list.append(file)
         return file_list
-
-    def list_csv(self):
-        file_list = []
-        for file in os.listdir():
-            if file != 'config_main.cfg' and file[-3:] == 'cfg':
-                file_list.append(file)
-        return file_list
-
-# print(file().list_file())
-# print(file().list_csv())
