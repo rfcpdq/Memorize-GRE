@@ -7,7 +7,7 @@ import pandas as pd
 from termcolor import cprint
 from data_utils import file
 from function import func2
-from config.cfg_parser import paraConfig
+from config.cfg_parser import paraConfig, update_cfg
 
 
 # Greeting
@@ -19,9 +19,12 @@ source = file().load_data()
 target = file().empty()
 
 
-# load config
+# Choose Config
+update_cfg().change_main_cfg()
+
+source = file().load_data()
+target = file().empty()
 cfg_name = paraConfig().main_cfg()
-print('Default config: ', cfg_name)
 
 cfg = paraConfig(cfg_name, section=1).get_cfg()
 out_name = cfg['out_name']

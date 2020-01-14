@@ -5,7 +5,7 @@ import os
 import pandas as pd
 from termcolor import cprint
 from data_utils import file
-from function import func, func2
+from function import func, func2, func3
 from tools import adb_func, clear
 from config.cfg_parser import paraConfig, update_cfg
 from merge import merge
@@ -74,7 +74,7 @@ while start:
     elif x == 'rev':
         clear()
         source_2 = file().load_data(out_name)
-        func2(source_2).rev_custom(1, 10)
+        func2(source_2).rev_custom(0, 10)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'r-':
@@ -86,7 +86,7 @@ while start:
     elif x[:2] == 'f-':
         clear()
         source_2 = file().load_data(out_name)
-        func2(source_2).rev_flashcard(x.split('-')[-1])
+        func3().rev_flashcard(source_2, x.split('-')[-1])
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     # ===== adb =====
