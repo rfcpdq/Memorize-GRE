@@ -29,6 +29,9 @@ class func(object):
             print(display(x.etymonline))
             print(display(x.emeaning))
             print(display(x.cmeaning))
+            # print(x.etymonline)
+            # print(x.emeaning)
+            # print(x.cmeaning)
             self.target = self.target.append(x)
             print('\n')
             cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
@@ -104,6 +107,21 @@ class func2(object):
         self.source = source
         self.total_len = len(source.index)
 
+    def search(self, x):
+        if x in self.source.word.values:
+            x = self.source.loc[self.source.word == x]
+            print(display(x.etymonline))
+            print(display(x.emeaning))
+            print(display(x.cmeaning))
+            print('\n')
+            cprint('Find!', 'white', 'on_magenta', attrs=['bold'])
+            return True
+        elif x == 'q':
+            return False
+        else:
+            cprint('\nNot Find!', 'white', 'on_magenta', attrs=['bold'])
+            return True
+
     def rev_func(self, rev_start, rev_end, banner=True, custom=False):
         if banner == True:
             rev_print = '|| Start: ' + \
@@ -114,16 +132,13 @@ class func2(object):
             print('\n')
 
         for i in range(rev_start, rev_end):
-            x = self.source.word.iloc[i]
-            if x in self.source.word.values and custom == False:
-                cprint(display(self.source.loc[self.source.word == x].word), 'red', attrs=[
+            x = self.source.iloc[i]
+            if custom == False:
+                cprint(x.word, 'red', attrs=[
                        'bold', 'underline'])
-                print(
-                    display(self.source.loc[self.source.word == x].etymonline))
-                print(
-                    display(self.source.loc[self.source.word == x].emeaning))
-                print(
-                    display(self.source.loc[self.source.word == x].cmeaning))
+                print(x.etymonline)
+                print(x.emeaning)
+                print(x.cmeaning)
                 print('\n')
 
     def show_position(self, block, rev_prosition, total_len):
@@ -215,7 +230,8 @@ class func3(object):
                     if pd.isnull(source.iloc[-(rev_start + 1)].remember) == True:
                         mark_list[i] = 1
                     else:
-                        mark_list[i] = int(source.iloc[-(rev_start + 1)].remember + 1)
+                        mark_list[i] = int(
+                            source.iloc[-(rev_start + 1)].remember + 1)
                     i += 1
                 else:
                     i += 1
@@ -233,7 +249,7 @@ class func3(object):
 
             # empty = file().empty()
             # func(source, empty).save_func()
-        
+
         else:
             rev_sec_left = total_len - (rev_prosition - 1) * block
             i = 0

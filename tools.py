@@ -12,6 +12,7 @@ def clear():
 
 
 def display(lista):
+    # lista = str(lista)
     lista = lista.astype(str)
     lista = [el.replace('\xa0', ' ') for el in lista]
     lista = [el.replace('\n', ' ') for el in lista]

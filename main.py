@@ -23,9 +23,11 @@ source = file().load_data()
 target = file().empty()
 cfg_name = paraConfig().main_cfg()
 
-cfg = paraConfig(cfg_name, section=1).get_cfg()
-out_name = cfg['out_name']
-use_adb = cfg['use_adb']
+cfg_func = paraConfig(cfg_name, section=1).get_cfg()
+out_name = cfg_func['out_name']
+use_adb = cfg_func['use_adb']
+cfg_merge = paraConfig(cfg_name, section=2).get_cfg()
+target_merge = cfg_merge['target_merge']  # All.csv
 cprint('\n==================================\n', 'magenta')
 
 
@@ -64,11 +66,20 @@ while start:
         if x == 'sav' and use_adb == True:
             adb_func('next')
 
-    elif x == 'back':
+    elif x == 'bk':
         source_2 = file().load_data(out_name)
         back_name = func(source, target).back_func()
         cprint(back_name, 'Backup Done!', 'white',
                'on_magenta', attrs=['bold'])
+
+    elif x == 'srch':
+        insrch = True
+        while insrch:
+            cprint('Search word (q to quit):', 'white',
+                   'on_magenta', attrs=['bold'])
+            y = input() or ''
+            source_2 = file().load_data(target_merge)
+            insrch = func2(source_2).search(y)
 
     # ===== review (start with '1') =====
     elif x == 'rev':
@@ -104,6 +115,9 @@ while start:
 
     elif x == 'merge':
         merge().merge_all()
+
+    elif x == 'merge2':
+        merge().remove_duplicate()
 
     else:
         target = func(source, target).def_func(x)
