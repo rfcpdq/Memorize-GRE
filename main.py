@@ -23,7 +23,6 @@ cprint('\n==================================\n', 'magenta')
 # import2
 import os
 import pandas as pd
-
 from function import func, func2, func3
 from tools import adb_func, clear
 from merge import merge

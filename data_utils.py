@@ -34,9 +34,12 @@ class file(object):
         target.to_csv(self.PATH + csv_dir + out_name,
                       mode='a', header=False, index=False, encoding='utf-8')
 
-    def save_rev(self, rev, time=0):
+    def save_rev(self, rev, time=0, phone=False):
         csv_dir = '/oth/'
-        f = open(self.PATH + csv_dir + "log.txt", "a")
+        if phone == True:
+            f = open(self.PATH + csv_dir + "log_phone.txt", "a")
+        else:
+            f = open(self.PATH + csv_dir + "log.txt", "a")
         if time == 1:
             time = strftime("%a, %d %b %Y %H:%M", gmtime())
             f.write('\n' + self.cfg_name + '\n')
