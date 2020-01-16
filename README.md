@@ -8,8 +8,6 @@ When memorizing the GRE vocabulary, I believe we (as a foreigner), should unders
 
 This project is a unfinished version. I write this to satisfy my personal need, and this repository may not get future update.
 
-Have a good day!
-
 
 
 What I want: 
@@ -23,6 +21,7 @@ What I want:
 			A.csv, as the merged CSV of B and C in which every word occur once
 - [x] Review vocabulary on cell phone (Android) & desktop (Linux / Windows) 
 - [x] Switch between different config files
+- [x] Save time and review section
 - [x] Simple spell check (python3 textblob, though... not accurate)
 
 
@@ -68,9 +67,7 @@ You can modify Android screen coordinates in `tools.py` `adb_func(move)`
 
 
 
-### Function names and Config explain
-
-See `main.py` and `phone_rev.py` for detail information
+### Config
 
 Config example:
 ```
@@ -91,12 +88,13 @@ back_i = int: 0
 ### Review (Computer)
 
 - Input `rev` will return last 10 words, you can change block in `main.py`
-- Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
-- Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_prosition, block = 60))
+- Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_position, block = 60))
+- Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_position, block = 30))
+- All your review time and review section will be saved in `/oth/log.txt`
 
 
 
 ### Review (Android Phone)
 
 - Install git in `Termux`
-- Run `phone_rev.py` (or other code) in `Pydroid3`
+- Run `phone_rev.py` (or other code) in `Pydroid3`, remember pre install packages

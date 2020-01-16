@@ -1,20 +1,9 @@
-# Need pass config in future!
-
-# Load
-import os
-import pandas as pd
-from termcolor import cprint
+# import1
+from config.cfg_parser import update_cfg
 from data_utils import file
-from function import func, func2, func3
-from tools import adb_func, clear
-from config.cfg_parser import paraConfig, update_cfg
-from merge import merge
+from config.cfg_parser import paraConfig
+from termcolor import cprint
 
-
-# Greeting
-from pyfiglet import Figlet
-custom_fig = Figlet(font='contessa')  # italic / contessa / basic
-print(custom_fig.renderText('Hi There!'))
 
 # Choose Config
 update_cfg().change_main_cfg()
@@ -31,11 +20,26 @@ target_merge = cfg_merge['target_merge']  # All.csv
 cprint('\n==================================\n', 'magenta')
 
 
+# import2
+import os
+import pandas as pd
+
+from function import func, func2, func3
+from tools import adb_func, clear
+from merge import merge
+
+
+# Greeting
+from pyfiglet import Figlet
+custom_fig = Figlet(font='contessa')  # italic / contessa / basic
+print(custom_fig.renderText('Hi There!'))
+
+
 start = True
+file().save_rev(0, 1)
 while start:
     cprint('Enter Word/Function Name:', 'green', attrs=['bold'])
     x = input() or ''
-    # x = 'politic'
 
     if x == 'exit':
         target = func(source, target).save_func()
@@ -47,12 +51,6 @@ while start:
     # elif x == 'edit':  # have error in saving
     #     source_2 = pd.read_csv(out_name, encoding='utf-8')
     #     temp_target = modify_func(source_2)
-    # elif x == 'drop':  # drop last col before saving
-    #     target = save_func(target)
-    #     source_2 = pd.read_csv(out_name, encoding='utf-8')
-    #     source_2 = source_2.drop(source_2.tail(1).index, inplace=True)
-    #     source_2.to_csv(out_name, mode='a', header=False, index=False, encoding='utf-8')
-    #     cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
 
     # ===== save / backup =====
     elif x in ['sav', 'sav2']:  # sav2: just save, don't no review
@@ -91,13 +89,17 @@ while start:
     elif x[:2] == 'r-':
         clear()
         source_2 = file().load_data(out_name)
-        func2(source_2).rev_custom(x.split('-')[-1])
+        rev = x.split('-')[-1]
+        func2(source_2).rev_custom(rev)
+        file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'f-':
         clear()
         source_2 = file().load_data(out_name)
-        func3().rev_flashcard(source_2, x.split('-')[-1])
+        rev = x.split('-')[-1]
+        func3().rev_flashcard(source_2, rev)
+        file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     # ===== adb =====
