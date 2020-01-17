@@ -98,3 +98,12 @@ back_i = int: 0
 
 - Install git in `Termux`
 - Run `phone_rev.py` (or other code) in `Pydroid3`, remember pre install packages
+
+
+
+## Notice
+
+- Do not use `sav` or `rev` function if csv has less than 10 words
+- Close output csv in excel, it will cause save problem (Notepad++ is ok)
+- Do not open two `main.py` and load two different csv
+

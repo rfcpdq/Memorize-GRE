@@ -18,9 +18,11 @@ class merge(object):
         self.cfg = paraConfig(cfg_name, section=2).get_cfg()
         self.file_list = self.cfg['file_list']
         self.target_merge = self.cfg['target_merge']
-        self.dupl = self.cfg['dupl']
-        self.target_dupl = self.dupl
         self.file_list_long = self.cfg['file_list']
+        # use working csv as dupl target
+        self.cfg2 = paraConfig(cfg_name, section=1).get_cfg()
+        self.dupl = self.cfg2['out_name']
+        self.target_dupl = self.dupl  # can save output to different csv
 
     def merge_two(self, file_list=0):
         if file_list == 0:
