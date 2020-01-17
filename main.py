@@ -9,7 +9,7 @@ from termcolor import cprint
 update_cfg().change_main_cfg()
 
 source = file().load_data()
-target = file().empty()
+target = file().empty()  # buffer
 cfg_name = paraConfig().main_cfg()
 
 cfg_func = paraConfig(cfg_name, section=1).get_cfg()
@@ -107,6 +107,7 @@ while start:
         cprint('\n')
         continue
 
+    # ===== clear =====
     elif x == 'c':
         clear()
 
@@ -114,12 +115,19 @@ while start:
         cprint('Pleace Enter Again!\n', 'red', attrs=['bold'])
         continue
 
+    # ===== merge =====
     elif x == 'merge':
         merge().merge_all()
 
     elif x == 'merge2':
         merge().remove_duplicate()
 
+    # ===== other =====
+    elif x == 'len':
+        source_2 = file().load_data(out_name)
+        print('Length: ', len(source_2.index))
+
+    # ===== def =====
     else:
         target = func(source, target).def_func(x)
 
