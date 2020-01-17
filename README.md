@@ -103,7 +103,7 @@ back_i = int: 0
 
 ## Notice
 
-- Do not use `sav` or `rev` function if csv has less than 10 words
+- Do not use `sav` or `rev` function if csv has less than 10 words, use `sav2` instead
 - Close output csv in excel, it will cause save problem (Notepad++ is ok)
 - Do not open two `main.py` and load two different csv
 
