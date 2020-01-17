@@ -3,7 +3,7 @@
 import os
 import pandas as pd
 from config.cfg_parser import paraConfig
-from time import gmtime, strftime
+from time import localtime, strftime
 
 
 class file(object):
@@ -41,7 +41,7 @@ class file(object):
         else:
             f = open(self.PATH + csv_dir + "log.txt", "a")
         if time == 1:
-            time = strftime("%a, %d %b %Y %H:%M", gmtime())
+            time = strftime("%a, %d %b %Y %H:%M", localtime())
             f.write('\n' + self.cfg_name + '\n')
             f.write(time + '\n')
             f.write("==========\n")
