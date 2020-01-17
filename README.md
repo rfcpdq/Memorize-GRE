@@ -26,25 +26,15 @@ What I want:
 
 
 
-## Screenshot
-
-Review on computer
-
-<img src="./demo/02.png" alt="computer" />
-
-
-
-Review on phone (Android Pydroid 3)
-
-<img src="./demo/01.jpg" alt="phone" width="35%" />
-
-
-
-Typing with software (see /demo/03.mp4)
-
-<img height=320 src="./demo/03.gif" />
-
 ## Usage
+
+## Install require packages
+
+```bash
+pip install -r requirements.txt
+```
+
+
 
 ### Switch between different config files
 
@@ -107,4 +97,44 @@ back_i = int: 0
 	- hint: you can type `len` to check length of csv
 - Close output csv in excel, it will cause save problem (Notepad++ is ok)
 - Do not open two `main.py` and load two different csv
+
+
+
+## Screenshot
+
+Switch from different config files
+
+<img src="./demo/04.png" alt="computer" width="50%" />
+
+
+
+Normal Review (ConEmu on Windows)
+
+<img src="./demo/02.png" alt="computer" />
+
+
+
+Flash Card Review (WSL Ubuntu)
+
+<img src="./demo/06.png" alt="computer" width="80%" />
+
+
+
+On phone (Android Pydroid 3)
+
+<img src="./demo/01.jpg" alt="phone" width="35%" />
+
+
+
+Typing with software (see /demo/03.mp4)
+
+<img height=320 src="./demo/03.gif" />
+
+
+
+Log file
+
+<img src="./demo/05.png" alt="computer" width="35%" />
+
+
 
