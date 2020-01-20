@@ -118,8 +118,11 @@ while start:
     # ===== merge =====
     elif x == 'merge':
         merge().merge_all()
+    
+    # elif x == 'merge2':
+    #     merge().merge_two()
 
-    elif x == 'merge2':
+    elif x == 'dupl':
         merge().remove_duplicate()
 
     # ===== other =====

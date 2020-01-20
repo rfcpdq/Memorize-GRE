@@ -1,13 +1,14 @@
 import time
 import subprocess
-from os import system, name
+import platform
+from os import system
 
 
 def clear():
     # another way to achieve this is: subprocess.call
-    if name == 'nt':
+    if platform.system() == 'Windows':
         _ = system('cls')
-    else:  # for mac and linux(here, os.name is 'posix')
+    else:
         _ = system('clear')
 
 

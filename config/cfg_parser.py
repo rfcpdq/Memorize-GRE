@@ -74,6 +74,7 @@ class update_cfg(object):
         for file in os.listdir():
             if file != 'config_main.cfg' and file[-3:] == 'cfg':
                 file_list.append(file)
+        file_list.sort()
         return file_list
 
     def change_main_cfg(self):
@@ -93,7 +94,7 @@ class update_cfg(object):
         with open('config_main.cfg', 'w') as configfile:
             cfg.write(configfile)
 
-        csv_print = '|| Configuration file updated: ' + \
+        csv_print = '|| Cfg file updated: ' + \
             self.cfg_name + ' ||'
 
         print('\n')

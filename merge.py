@@ -63,6 +63,6 @@ class merge(object):
         return 0
 
 
-# merge().merge()
+# merge().merge_two()
 # merge().merge_all()
 # merge().remove_duplicate()
