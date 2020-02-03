@@ -260,13 +260,20 @@ class func3(object):
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
                 rev_start = (i + (rev_prosition - 1) * block) * flashcard
                 rev_end = rev_start + flashcard
-                self.rev_func(rev_start, rev_end, False)
+                func2(source).rev_func(rev_start, rev_end, False)
                 x = input('Enter / j / k to move, q to cancel\n') or ''
                 if x == 'k':
                     i -= 1
-                if x == 'q':
+                elif x == 'q':
                     break
+                elif x == 'm':
+                    # update_remember(source, rev_start)
+                    if pd.isnull(source.iloc[-(rev_start + 1)].remember) == True:
+                        mark_list[i] = 1
+                    else:
+                        mark_list[i] = int(
+                            source.iloc[-(rev_start + 1)].remember + 1)
+                    i += 1
                 else:
                     i += 1
                 cprint('==================================\n', 'magenta')
-            return self.source
