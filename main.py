@@ -58,7 +58,7 @@ while start:
         # minium review number is 10!
         if x == 'sav':
             source_2 = file().load_data(out_name)
-            func2(source_2).rev_custom(1, 10)
+            func2(source_2).rev_custom(0, 10)
         cprint('Save Done!', 'white', 'on_magenta', attrs=['bold'])
         if x == 'sav' and use_adb == True:
             adb_func('next')
