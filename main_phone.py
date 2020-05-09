@@ -1,4 +1,6 @@
-# search and uncomment all file().save_rev to save log
+# Use different log file
+# No func().def_func()
+# Block size for review = 30
 
 # import1
 from config.cfg_parser import update_cfg
@@ -11,7 +13,7 @@ from termcolor import cprint
 update_cfg().change_main_cfg()
 
 source = file().load_data()
-target = file().empty()  # buffer
+target = file().empty()
 cfg_name = paraConfig().main_cfg()
 
 cfg_func = paraConfig(cfg_name, section=1).get_cfg()
@@ -22,55 +24,32 @@ target_merge = cfg_merge['target_merge']  # All.csv
 cprint('\n==================================\n', 'magenta')
 
 
-# import2
+# import2 - phone
 import os
+from os import system, name
 import pandas as pd
-from function import func, func2, func3
-from tools import adb_func, clear
-from merge import merge
+from function import func2, func3
 
 
 # Greeting
 from pyfiglet import Figlet
 custom_fig = Figlet(font='contessa')  # italic / contessa / basic
-print(custom_fig.renderText("Let's Go!"))
+print(custom_fig.renderText('Let\'s go!'))
 
 
 start = True
-# file().save_rev(0, 1)
+# file().save_rev(0, 1, phone=True)
+
+start = True
 while start:
     cprint('Enter Word/Function Name:', 'green', attrs=['bold'])
     x = input() or ''
+    # x = 'politic'
 
     if x == 'exit':
-        target = func(source, target).save_func()
-        print(custom_fig.renderText("See You :)"))
+        print(custom_fig.renderText('See You~'))
         start = False
         break
-
-    # ===== edit =====
-    # elif x == 'edit':  # have error in saving
-    #     source_2 = pd.read_csv(out_name, encoding='utf-8')
-    #     temp_target = modify_func(source_2)
-
-    # ===== save / backup =====
-    elif x in ['sav', 'sav2']:  # sav2: just save, don't no review
-        clear()
-        target = func(source, target).save_func()
-        # minium review number is 10!
-        if x == 'sav':
-            source_2 = file().load_data(out_name)
-            func2(source_2).rev_custom(0, 10)
-        cprint('Save Done!', 'white', 'on_magenta', attrs=['bold'])
-
-        if x == 'sav' and use_adb == True:
-            adb_func('next')
-
-    elif x == 'bk':
-        source_2 = file().load_data(out_name)
-        back_name = func(source, target).back_func()
-        cprint(back_name, 'Backup Done!', 'white',
-               'on_magenta', attrs=['bold'])
 
     # ===== search =====
     elif x[:2] == 's-':
@@ -128,37 +107,14 @@ while start:
         # file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
-    # ===== adb =====
-    elif x in ['n', 'b', 'next', 'next2', 'p', '1', '2']:
-        adb_func(x)
-        cprint('\n')
-        continue
-
-    # ===== clear =====
     elif x == 'c':
-        clear()
+        system('clear')
 
     elif x == '':
         cprint('Pleace Enter Again!\n', 'red', attrs=['bold'])
         continue
 
-    # ===== merge =====
-    elif x == 'merge':
-        merge().merge_all()
-    
-    # elif x == 'merge2':
-    #     merge().merge_two()
-
-    elif x == 'dupl':
-        merge().remove_duplicate()
-
-    # ===== other =====
-    elif x == 'len':
-        source_2 = file().load_data(out_name)
-        print('Length: ', len(source_2.index))
-
-    # ===== def =====
-    else:
-        target = func(source, target).def_func(x)
+    # else:
+    #     target = func(source, target).def_func(x)
 
     cprint('\n==================================\n', 'magenta')

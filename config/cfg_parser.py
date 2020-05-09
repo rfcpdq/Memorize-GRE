@@ -15,8 +15,7 @@ class paraConfig(object):
     def __init__(self, conf_f='6_kmf.cfg', section=0, updatePara={}):
         self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
         os.chdir(self.PATH)
-        self.cp = MyConfigParser()
-        # print("Loading config file:", conf_f, ".................")
+        self.cp = MyConfigParser()  # config parser
         self.cp.read(conf_f)
         self.para = dict()
         self.updatePara = updatePara
@@ -80,21 +79,22 @@ class update_cfg(object):
     def change_main_cfg(self):
         cfg = configparser.ConfigParser()
         cfg.read('config_main.cfg')
-
-        self.cfg_list = self.list_cfg()
-        print('Choose config file [0~n]:', self.cfg_list)
+        self.all_cfg = self.list_cfg()  # get all cfg
+        print('Choose config file [0~n]:')
+        print(self.all_cfg)
         x = input() or ''
-        # x = 2
+
+        # update main cfg
         if x != '':
             x = int(x)
-            self.cfg_name = self.cfg_list[x]
-            self.write = 'str: ' + self.cfg_name
+            self.cfg_name = self.all_cfg[x]
+            self.new_cfg = 'str: ' + self.cfg_name
 
-        cfg.set('main', 'cfg_name', self.write)
+        cfg.set('main', 'cfg_name', self.new_cfg)
         with open('config_main.cfg', 'w') as configfile:
             cfg.write(configfile)
 
-        csv_print = '|| Cfg file updated: ' + \
+        csv_print = '|| Cfg file: ' + \
             self.cfg_name + ' ||'
 
         print('\n')

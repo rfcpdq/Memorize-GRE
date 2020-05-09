@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from termcolor import colored, cprint
 from math import ceil
+import random
 from tools import display, adb_func, clear
 from data_utils import file
 from config.cfg_parser import paraConfig
@@ -122,6 +123,7 @@ class func2(object):
             cprint('\nNot Find!', 'white', 'on_magenta', attrs=['bold'])
             return True
 
+    # custom can be used shuffle r-x review
     def rev_func(self, rev_start, rev_end, banner=True, custom=False):
         if banner == True:
             rev_print = '|| Start: ' + \
@@ -131,15 +133,17 @@ class func2(object):
             cprint('=' * len(rev_print), 'white', 'on_magenta')
             print('\n')
 
-        for i in range(rev_start, rev_end):
+        li = [i for i in range(rev_start, rev_end)]
+        if custom == True:
+            random.shuffle(li)
+        for i in li:
             x = self.source.iloc[i]
-            if custom == False:
-                cprint(x.word, 'red', attrs=[
-                       'bold', 'underline'])
-                print(x.etymonline)
-                print(x.emeaning)
-                print(x.cmeaning)
-                print('\n')
+            cprint(x.word, 'red', attrs=[
+                   'bold', 'underline'])
+            print(x.etymonline)
+            print(x.emeaning)
+            print(x.cmeaning)
+            print('\n')
 
     def show_position(self, block, rev_prosition, total_len):
         total_rev = ceil(total_len / block)
@@ -152,7 +156,7 @@ class func2(object):
         cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
         print('\n')
 
-    def rev_custom(self, rev_prosition, block=60):
+    def rev_custom(self, rev_prosition, block=60, rand=False):
         # rev 60 words each time, print review precision (12/15)
         # rev_prosition minimum = 1 !!!
         loop = int(block / 10)
@@ -166,7 +170,10 @@ class func2(object):
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
                 rev_start = (i + (rev_prosition - 1) * loop) * 10
                 rev_end = rev_start + 10
-                self.rev_func(rev_start, rev_end)
+                if rand == False:
+                    self.rev_func(rev_start, rev_end)
+                else:
+                    self.rev_func(rev_start, rev_end, custom=True)
                 cprint('==================================\n', 'magenta')
 
         else:
@@ -177,14 +184,20 @@ class func2(object):
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
                 rev_start = (i + (rev_prosition - 1) * loop) * 10
                 rev_end = rev_start + 10
-                self.rev_func(rev_start, rev_end)
+                if rand == False:
+                    self.rev_func(rev_start, rev_end)
+                else:
+                    self.rev_func(rev_start, rev_end, custom=True)
                 cprint('==================================\n', 'magenta')
 
             part_process = 'Part: final'
             cprint(part_process, 'green', attrs=['bold', 'underline'])
             rev_start = (rev_sec_left - 1 + (rev_prosition - 1) * loop) * 10
             rev_end = len(self.source.index)
-            self.rev_func(rev_start, rev_end)
+            if rand == False:
+                self.rev_func(rev_start, rev_end)
+            else:
+                self.rev_func(rev_start, rev_end, custom=True)
             cprint('==================================\n', 'magenta')
 
 
@@ -201,7 +214,7 @@ class func3(object):
     #     # empty = file().empty()
     #     # func(source, empty).save_func()
 
-    def rev_flashcard(self, source, rev_prosition, block=30, flashcard=1):
+    def rev_flashcard(self, source, rev_prosition, block=30, flashcard=1, rand=False):
         # rev '30' words each time, print review precision (12/15)
         # flashcard shows 1 word by default
         # rev_prosition minimum = 1 !!!
@@ -213,11 +226,14 @@ class func3(object):
         if rev_prosition != total_rev:
             i = 0
             mark_list = ['nan'] * int(block)
+            li = [i for i in range(0, block)]
+            if rand == True:
+                random.shuffle(li)
             while i < block:
                 clear()
                 part_process = 'Prosition:' + str(i + 1) + '/' + str(block)
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
-                rev_start = (i + (rev_prosition - 1) * block) * flashcard
+                rev_start = (li[i] + (rev_prosition - 1) * block) * flashcard
                 rev_end = rev_start + flashcard
                 func2(source).rev_func(rev_start, rev_end, False)
                 x = input('Enter / j / k to move, q to cancel\n') or ''
@@ -253,12 +269,15 @@ class func3(object):
         else:
             rev_sec_left = total_len - (rev_prosition - 1) * block
             i = 0
+            li = [i for i in range(0, rev_sec_left)]
+            if rand == True:
+                random.shuffle(li)
             while i < rev_sec_left:
                 clear()
                 part_process = 'Prosition:' + \
                     str(i + 1) + '/' + str(rev_sec_left)
                 cprint(part_process, 'green', attrs=['bold', 'underline'])
-                rev_start = (i + (rev_prosition - 1) * block) * flashcard
+                rev_start = (li[i] + (rev_prosition - 1) * block) * flashcard
                 rev_end = rev_start + flashcard
                 func2(source).rev_func(rev_start, rev_end, False)
                 x = input('Enter / j / k to move, q to cancel\n') or ''
