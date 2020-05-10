@@ -80,7 +80,9 @@ back_i = int: 0
 - Input `rev` will return last 10 words, you can change block in `main.py`
 - Input `r-number` : `r-1`(for example) will return last 60 words (can be changed in function.py, def rev_custom(self, rev_position, block = 60))
 - Input `f-number` : `f-1`(for example) will return last 30 words in flash card (can be changed in function.py, def rev_custom(self, rev_position, block = 30))
-- All your review time and review section will be saved in `/oth/log.txt`
+- Input `rf-number` or `rr-number` : `rf-1`(for example) will return shuffled results
+- You can search and modify in target csv as well, default editor is VIM
+- All your review time and review section will be saved in `/oth/log.txt` (closed by defalut)
 
 
 

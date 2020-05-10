@@ -1,6 +1,8 @@
 import time
 import subprocess
+from subprocess import call
 import platform
+import tempfile, os
 from os import system
 
 
@@ -8,7 +10,7 @@ def clear():
     # another way to achieve this is: subprocess.call
     if platform.system() == 'Windows':
         _ = system('cls')
-    else:
+    else:  # for mac and linux(here, os.name is 'posix')
         _ = system('clear')
 
 
@@ -48,3 +50,23 @@ def adb_func(move):
         cmdCommand = "adb shell input tap 310 1990"
     process = subprocess.Popen(cmdCommand.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
+
+
+
+def modify(string):
+    EDITOR = os.environ.get('EDITOR', 'vim')
+    # string = "Hi~ How are you"
+    init_message = string.encode('UTF-8')
+    with tempfile.NamedTemporaryFile(suffix=".tmp") as tf:
+        tf.write(init_message)
+        tf.flush()
+        call([EDITOR, tf.name])
+        # do the parsing with `tf` using regular File operations.
+        # for instance:
+        tf.seek(0)
+        edited_message = tf.read()
+        new_str = (edited_message.decode("utf-8"))
+        new_str = new_str.rstrip("\n")
+        # print(repr(new_str))
+        return new_str
+

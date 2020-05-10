@@ -49,9 +49,10 @@ while start:
         break
 
     # ===== edit =====
-    # elif x == 'edit':  # have error in saving
-    #     source_2 = pd.read_csv(out_name, encoding='utf-8')
-    #     temp_target = modify_func(source_2)
+    # elif x == 'e-':
+    elif x == 'e':
+        source_2 = file().load_data(out_name)
+        func(source, target).modify_func(source_2)
 
     # ===== save / backup =====
     elif x in ['sav', 'sav2']:  # sav2: just save, don't no review
@@ -80,7 +81,7 @@ while start:
         # file().save_rev(rev)
         cprint('Search Done!', 'white', 'on_magenta', attrs=['bold'])
 
-    elif x == 'srch':
+    elif x == 'ss':
         insrch = True
         while insrch:
             cprint('Search word (q to quit):', 'white',

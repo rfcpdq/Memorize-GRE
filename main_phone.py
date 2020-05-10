@@ -7,7 +7,7 @@ from config.cfg_parser import update_cfg
 from data_utils import file
 from config.cfg_parser import paraConfig
 from termcolor import cprint
-
+from tools import clear
 
 # Choose Config
 update_cfg().change_main_cfg()

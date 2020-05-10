@@ -3,7 +3,7 @@ import pandas as pd
 from termcolor import colored, cprint
 from math import ceil
 import random
-from tools import display, adb_func, clear
+from tools import display, adb_func, clear, modify
 from data_utils import file
 from config.cfg_parser import paraConfig
 
@@ -66,29 +66,6 @@ class func(object):
                 adb_func('n')
             return self.target
 
-    # def modify_func(self, x):
-    #     x = input('Enter word you want to Modify:\n')
-    #     if x in self.source.word.values:
-    #         print(self.source.loc[self.source.word == x].word)
-    #         print(self.source.loc[self.source.word == x].etymonline)
-    #         print(self.source.loc[self.source.word == x].emeaning)
-    #         print(self.source.loc[self.source.word == x].cmeaning)
-
-    #     modify = input('Modify?\n') or 'n'
-    #     if modify == 'n' or modify == 'N':
-    #         return self.source
-    #     else:
-    #         print('Modify description:\n')
-    #         print(self.source.loc[self.source.word == x].etymonline)
-    #         ety = input('Modify etymonline:\n') or self.source.loc[self.source.word == x].etymonline
-    #         print(self.source.loc[self.source.word == x].emeaning)
-    #         em = input('Modify e_meaning:\n') or self.source.loc[self.source.word == x].emeaning
-    #         cm = self.source.loc[self.source.word == x].cmeaning
-    #         self.source.loc[self.source.word == x, ["word", "etymonline", "emeaning", "cmeaning"]] = [x, ety, em, cm]
-    #         print('\n\n')
-    #         cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
-    #         return self.source
-
     def save_func(self):
         if len(self.target) == 0:
             return self.empty
@@ -101,6 +78,42 @@ class func(object):
         file().save_csv(self.target, name)
         self.back_i += 1
         return name
+
+    # todo
+    def modify_func(self, source_2):
+        cprint('Enter word you want to Modify:', 'green', attrs=['bold'])
+        x = input()
+        if x in source_2.word.values:
+            v = source_2.loc[source_2.word == x]
+            cprint(display(v.word), 'red', attrs=['bold', 'underline'])
+            print(display(v.etymonline))
+            print(display(v.emeaning))
+            print(display(v.cmeaning))
+            print('\n')
+            
+            print(self.col)
+            mod = input('Modify?(input number to modify specific colum)\n') or ''
+            if mod == 'n' or mod == 'N':
+                return
+            elif mod.isnumeric():
+                while mod != 'q':
+                    mod_col = self.col[int(mod)]
+                    cprint('\nModify ' + mod_col + ' as:', 'red', attrs=['bold', 'underline'])
+                    temp_str = modify(str(v[mod_col].values[0]))
+                    print(repr(temp_str))
+                    confirm_mod = input('Confirm? (n to reinput, q to exit)\n') or ''
+                    if confirm_mod == 'n' or confirm_mod == 'N':
+                        return
+                    elif confirm_mod == 'q':
+                        return
+                    else:
+                        source_2.loc[source_2.word == x, mod_col] = temp_str
+                        csv_dir = '/inputs/'
+                        source_2.to_csv(self.PATH + csv_dir + self.out_name, index=False, encoding='utf-8')
+                        cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
+                        return
+            else:
+                print('wrong input!')
 
 
 class func2(object):
