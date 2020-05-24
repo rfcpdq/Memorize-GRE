@@ -1,33 +1,39 @@
 # search and uncomment all file().save_rev to save log
 
 # import1
-from config.cfg_parser import update_cfg
 from data_utils import file
+from config.cfg_parser import update_cfg
 from config.cfg_parser import paraConfig
 from termcolor import cprint
 
 
-# Choose Config
-update_cfg().change_main_cfg()
-
-source = file().load_data()
-target = file().empty()  # buffer
+# load config
+all_voc = file().load_data()  # All.csv
+buffer_df = file().empty()  # buffer
 cfg_name = paraConfig().main_cfg()
 
 cfg_func = paraConfig(cfg_name, section=1).get_cfg()
-out_name = cfg_func['out_name']
+target_csv_name = cfg_func['out_name']  # target csv
 use_adb = cfg_func['use_adb']
-cfg_merge = paraConfig(cfg_name, section=2).get_cfg()
-target_merge = cfg_merge['target_merge']  # All.csv
+
+csv_print = '|| Cfg file: ' + \
+    cfg_name + ' ||'
+
+print('\n')
+print('=' * len(csv_print))
+print(csv_print)
+print('=' * len(csv_print))
+
 cprint('\n==================================\n', 'magenta')
 
 
 # import2
 import os
 import pandas as pd
-from function import func, func2, func3
+from function import func, func2
 from tools import adb_func, clear
 from merge import merge
+from ety import online_ety
 
 
 # Greeting
@@ -43,7 +49,12 @@ while start:
     x = input() or ''
 
     if x == 'exit':
-        target = func(source, target).save_func()
+        buffer_df = func(all_voc, buffer_df).save_func()
+        print(custom_fig.renderText("See You :)"))
+        start = False
+        break
+
+    if x == 'q':
         print(custom_fig.renderText("See You :)"))
         start = False
         break
@@ -51,81 +62,95 @@ while start:
     # ===== edit =====
     # elif x == 'e-':
     elif x == 'e':
-        source_2 = file().load_data(out_name)
-        func(source, target).modify_func(source_2)
+        target_csv = file().load_data(target_csv_name)
+        func2(target_csv).modify_func()
 
     # ===== save / backup =====
     elif x in ['sav', 'sav2']:  # sav2: just save, don't no review
         clear()
-        target = func(source, target).save_func()
+        buffer_df = func(all_voc, buffer_df).save_func()
         # minium review number is 10!
         if x == 'sav':
-            source_2 = file().load_data(out_name)
-            func2(source_2).rev_custom(0, 10)
+            target_csv = file().load_data(target_csv_name)
+            func2(target_csv).rev_custom(0, 10)
         cprint('Save Done!', 'white', 'on_magenta', attrs=['bold'])
 
         if x == 'sav' and use_adb == True:
             adb_func('next')
 
     elif x == 'bk':
-        source_2 = file().load_data(out_name)
-        back_name = func(source, target).back_func()
+        target_csv = file().load_data(target_csv_name)
+        back_name = func(all_voc, buffer_df).back_func()
         cprint(back_name, 'Backup Done!', 'white',
                'on_magenta', attrs=['bold'])
 
     # ===== search =====
+    # check if xxx is in current csv
     elif x[:2] == 's-':
-        source_2 = file().load_data(out_name)
+        target_csv = file().load_data(target_csv_name)
         y = x.split('-')[-1]
-        func2(source_2).search(y)
+        func2(target_csv).search(y)
         # file().save_rev(rev)
         cprint('Search Done!', 'white', 'on_magenta', attrs=['bold'])
 
+    # search in all csv
     elif x == 'ss':
         insrch = True
         while insrch:
             cprint('Search word (q to quit):', 'white',
                    'on_magenta', attrs=['bold'])
             y = input() or ''
-            source_2 = file().load_data(target_merge)
-            insrch = func2(source_2).search(y)
+            # target_csv = file().load_data(target_merge)
+            insrch = func2(all_voc).search(y)
+
+    # ===== online ety =====
+    elif x == 'ety':
+        insrch = True
+        while insrch:
+            cprint('Search word (q to quit):', 'white',
+                   'on_magenta', attrs=['bold'])
+            y = input() or ''
+            if y == 'q':
+                insrch = False
+            else:
+                online_ety(y)
 
     # ===== review (start with '1') =====
     elif x == 'rev':
         clear()
-        source_2 = file().load_data(out_name)
-        func2(source_2).rev_custom(0, 10)
+        target_csv = file().load_data(target_csv_name)
+        func2(target_csv).rev_custom(0, 10)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'r-':
         clear()
-        source_2 = file().load_data(out_name)
+        target_csv = file().load_data(target_csv_name)
         rev = x.split('-')[-1]
-        func2(source_2).rev_custom(rev, 30)
+        func2(target_csv).rev_custom(rev, 30)
         # file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:3] == 'rr-':
         clear()
-        source_2 = file().load_data(out_name)
+        target_csv = file().load_data(target_csv_name)
         rev = x.split('-')[-1]
-        func2(source_2).rev_custom(rev, 30, rand=True)
+        func2(target_csv).rev_custom(rev, 30, rand=True)
         # file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'f-':
         clear()
-        source_2 = file().load_data(out_name)
+        target_csv = file().load_data(target_csv_name)
         rev = x.split('-')[-1]
-        func3().rev_flashcard(source_2, rev, 30)
+        func2(target_csv).rev_flashcard(rev, 30)
         # file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:3] == 'rf-':
         clear()
-        source_2 = file().load_data(out_name)
+        target_csv = file().load_data(target_csv_name)
         rev = x.split('-')[-1]
-        func3().rev_flashcard(source_2, rev, 30, rand=True)
+        func2(target_csv).rev_flashcard(rev, 30, rand=True)
         # file().save_rev(rev)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
@@ -145,6 +170,8 @@ while start:
 
     # ===== merge =====
     elif x == 'merge':
+        # cfg_merge = paraConfig(cfg_name, section=2).get_cfg()
+        # target_merge = cfg_merge['target_merge']  # All.csv
         merge().merge_all()
     
     # elif x == 'merge2':
@@ -155,11 +182,28 @@ while start:
 
     # ===== other =====
     elif x == 'len':
-        source_2 = file().load_data(out_name)
-        print('Length: ', len(source_2.index))
+        target_csv = file().load_data(target_csv_name)
+        print('Length: ', len(target_csv.index))
+
+    elif x == 'cfg':
+        update_cfg().change_main_cfg()
+    
+        all_voc = file().load_data()
+        buffer_df = file().empty()  # buffer
+        cfg_name = paraConfig().main_cfg()
+        
+        cfg_func = paraConfig(cfg_name, section=1).get_cfg()
+        target_csv_name = cfg_func['out_name']
+        use_adb = cfg_func['use_adb']
+        # cfg_merge = paraConfig(cfg_name, section=2).get_cfg()
+        # target_merge = cfg_merge['target_merge']  # All.csv
+        cprint('\n==================================\n', 'magenta')
+        print(custom_fig.renderText("Please Restart :)"))
+        start = False
+        break
 
     # ===== def =====
     else:
-        target = func(source, target).def_func(x)
+        buffer_df = func(all_voc, buffer_df).def_func(x)
 
     cprint('\n==================================\n', 'magenta')
