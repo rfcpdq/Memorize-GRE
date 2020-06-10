@@ -32,12 +32,8 @@ class func(cfg):
     def def_func(self, x, custom=False):
         if x in self.source.word.values:
             x = self.source.loc[self.source.word == x]
-            print(display(x.etymonline))
-            print(display(x.emeaning))
-            print(display(x.cmeaning))
-            # print(x.etymonline)
-            # print(x.emeaning)
-            # print(x.cmeaning)
+            for col in self.col[1:]:
+                print(display(x[col]))
             self.target = self.target.append(x)
             print('\n')
             cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
@@ -45,26 +41,15 @@ class func(cfg):
                 adb_func('n')
             return self.target
         else:
-            cprint('Add etymonline (N to cancel):', 'green')
-            ety = input() or ''
-            if ety == 'n' or ety == 'N':
-                return self.target
-            cprint('Add e_meaning (c: add c_m, a: add c_m and e_m):', 'green')
-            em = input() or ''
-            if em == 'c':
-                em = ''
-                cprint('Add c_meaning:', 'green')
-                cm = input() or ''
-            if em == 'a':
-                cprint('Add e_meaning:', 'green')
-                em = input() or ''
-                cprint('Add c_meaning:', 'green')
-                cm = input() or ''
-            else:
-                cm = ''
-            # print(x, ety, em, cm)
-            self.target = self.target.append(
-                {"word": x, "etymonline": ety, "emeaning": em, "cmeaning": cm}, ignore_index=True)
+            temp_li = [x]
+            for col in self.col[1:]:
+                cprint('Add {} (N to cancel):'.format(col), 'green')
+                temp_elem = input() or ''
+                if temp_elem == 'n' or temp_elem == 'N':
+                    return self.target
+                temp_li.append(temp_elem)
+            temp_append = pd.DataFrame([temp_li], columns=self.col)
+            self.target = self.target.append(temp_append)
             print('\n')
             cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
             if cfg.use_adb == True:
@@ -84,6 +69,7 @@ class func(cfg):
         cfg.back_i += 1
         return name
 
+        import pdb; pdb.set_trace()  # XXX BREAKPOINT
 
 class func2(cfg):
     def __init__(self, source):
@@ -92,16 +78,15 @@ class func2(cfg):
     def search(self, x):
         if x in self.source.word.values:
             x = self.source.loc[self.source.word == x]
-            print(display(x.etymonline))
-            print(display(x.emeaning))
-            print(display(x.cmeaning))
+            for col in self.col[1:]:
+                print(display(x[col]))
             print('\n')
-            cprint('Find!', 'white', 'on_magenta', attrs=['bold'])
+            # cprint('Find!', 'green', attrs=['bold'])
             return True
         elif x == 'q':
             return False
         else:
-            cprint('\nNot Find!', 'white', 'on_magenta', attrs=['bold'])
+            cprint('\nNot Find!', 'green', attrs=['bold'])
             return True
 
     # custom can be used shuffle r-x review
@@ -119,11 +104,10 @@ class func2(cfg):
             random.shuffle(li)
         for i in li:
             x = self.source.iloc[i]
-            cprint(x.word, 'red', attrs=[
-                   'bold', 'underline'])
-            print(x.etymonline)
-            print(x.emeaning)
-            print(x.cmeaning)
+            cprint(x[self.col[0]], 'red', attrs=['bold', 'underline'])
+            for col in self.col[1:]:
+                print(x[col])
+
             print('\n')
 
     def show_position(self, block, rev_prosition, total_len):
@@ -187,14 +171,13 @@ class func2(cfg):
         x = input()
         if x in self.source.word.values:
             v = self.source.loc[self.source.word == x]
-            cprint(display(v.word), 'red', attrs=['bold', 'underline'])
-            print(display(v.etymonline))
-            print(display(v.emeaning))
-            print(display(v.cmeaning))
+            cprint(display(v[self.col[0]]), 'red', attrs=['bold', 'underline'])
+            for col in self.col[1:]:
+                print(display(v[col]))
             print('\n')
             
             print(cfg.col)
-            mod = input('Modify?(input number to modify specific colum)\n') or ''
+            mod = input('Modify?(input number to modify specific column)\n') or ''
             if mod == 'n' or mod == 'N':
                 return
             elif mod.isnumeric():

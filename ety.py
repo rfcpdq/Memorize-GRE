@@ -43,13 +43,19 @@ def online_ety(word):
         etyList = page.find_all("section", class_="word__defination--2q7ZH undefined")
         # print(len(nameList), len(etyList))
     
-        for i in range(len(nameList)):
+        # only display top 4
+        if len(nameList) < 5:
+            nameList_display = len(nameList) 
+        else:
+            nameList_display = 5
+
+        for i in range(nameList_display):
             rev_print = '|| ' + nameList[i].text + ' ||'
             cprint('=' * len(rev_print), 'green', attrs=['bold'])
             cprint(rev_print, 'green', attrs=['bold'])
             cprint('=' * len(rev_print), 'green', attrs=['bold'])
             print(etyList[i].text)
             print()
-    
+
     else:
         cprint('Not Find!', 'green', attrs=['bold'])
