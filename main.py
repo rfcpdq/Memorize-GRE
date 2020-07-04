@@ -6,7 +6,6 @@ from config.cfg_parser import update_cfg
 from config.cfg_parser import paraConfig
 from termcolor import cprint
 
-
 # load config
 all_voc = file().load_data()  # All.csv
 buffer_df = file().empty()  # buffer
@@ -26,7 +25,6 @@ print('=' * len(csv_print))
 
 cprint('\n==================================\n', 'magenta')
 
-
 # import2
 import os
 import pandas as pd
@@ -35,12 +33,10 @@ from tools import adb_func, clear
 from merge import merge
 from ety import online_ety
 
-
 # Greeting
 from pyfiglet import Figlet
 custom_fig = Figlet(font='contessa')  # italic / contessa / basic
 print(custom_fig.renderText("Let's Go!"))
-
 
 start = True
 # file().save_rev(0, 1)
@@ -81,8 +77,11 @@ while start:
     elif x == 'bk':
         target_csv = file().load_data(target_csv_name)
         back_name = func(all_voc, buffer_df).back_func()
-        cprint(back_name, 'Backup Done!', 'white',
-               'on_magenta', attrs=['bold'])
+        cprint(back_name,
+               'Backup Done!',
+               'white',
+               'on_magenta',
+               attrs=['bold'])
 
     # ===== search =====
     # check if xxx is in current csv
@@ -97,8 +96,10 @@ while start:
     elif x == 'ss':
         insrch = True
         while insrch:
-            cprint('Search word (q to quit):', 'white',
-                   'on_magenta', attrs=['bold'])
+            cprint('Search word (q to quit):',
+                   'white',
+                   'on_magenta',
+                   attrs=['bold'])
             y = input() or ''
             # target_csv = file().load_data(target_merge)
             insrch = func2(all_voc).search(y)
@@ -107,8 +108,10 @@ while start:
     elif x == 'ety':
         insrch = True
         while insrch:
-            cprint('Search word (q to quit):', 'white',
-                   'on_magenta', attrs=['bold'])
+            cprint('Search word (q to quit):',
+                   'white',
+                   'on_magenta',
+                   attrs=['bold'])
             y = input() or ''
             if y == 'q':
                 insrch = False
@@ -119,7 +122,11 @@ while start:
     elif x == 'rev':
         clear()
         target_csv = file().load_data(target_csv_name)
-        func2(target_csv).rev_custom(0, 10)
+        if len(target_csv.index) < 10:
+            print('Less than 10 values')
+            func2(target_csv).rev_custom(1, 10)
+        else:
+            func2(target_csv).rev_custom(0, 10)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'r-':
@@ -173,7 +180,7 @@ while start:
         # cfg_merge = paraConfig(cfg_name, section=2).get_cfg()
         # target_merge = cfg_merge['target_merge']  # All.csv
         merge().merge_all()
-    
+
     # elif x == 'merge2':
     #     merge().merge_two()
 
@@ -187,11 +194,11 @@ while start:
 
     elif x == 'cfg':
         update_cfg().change_main_cfg()
-    
+
         all_voc = file().load_data()
         buffer_df = file().empty()  # buffer
         cfg_name = paraConfig().main_cfg()
-        
+
         cfg_func = paraConfig(cfg_name, section=1).get_cfg()
         target_csv_name = cfg_func['out_name']
         use_adb = cfg_func['use_adb']

@@ -12,7 +12,7 @@ class MyConfigParser(configparser.ConfigParser):
 
 
 class paraConfig(object):
-    def __init__(self, conf_f='6_kmf.cfg', section=0, updatePara={}):
+    def __init__(self, conf_f='1_red.cfg', section=0, updatePara={}):
         self.PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
         os.chdir(self.PATH)
         self.cp = MyConfigParser()  # config parser

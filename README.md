@@ -1,28 +1,22 @@
-# Memorize-GRE
-
-
-
-## About this project
+# RunAbout this project
 
 When memorizing the GRE vocabulary, I believe we (as a foreigner), should understand the vocabulary by their meanings first.
 
-This project is a unfinished version. I write this to satisfy my personal need, and this repository may not get future update.
+This project is an unfinished version. I write this to satisfy my personal need, and this repository may not get future updates.
+
+This is a flash card project, you can memorize other stuffs as well
 
 
 
 What I want: 
 
 - [x] Take personal notes on each vocabulary
-- [x] Each CSV file corresponds to a vocabulary book. Automatically fill in duplicate words when working on a new vocabulary book (inputs/B.csv). 
-- [x] Merge all CSV into one final file, remove duplicate, keep notation up-to-date.
-	- In this repository demo we have (you can change file name in cfg): 
-			B.csv, as the vocabulary book I am reading
-			C.csv, as the finished book
-			A.csv, as the merged CSV of B and C in which every word occur once
-- [x] Review vocabulary on cell phone (Android) & desktop (Linux / Windows) 
+  - [x] Each CSV file corresponds to a vocabulary book. Automatically fill in duplicate words when working on a new vocabulary book (inputs/B.csv). 
+  - [x] Merge all CSV into one final file, remove duplicate, keep notation up-to-date.
+- [x] Run on cell phone (Android) & desktop (Linux / Windows) 
 - [x] Switch between different config files
 - [x] Save time and review section
-- [x] Simple spell check (python3 textblob, though... not accurate)
+- [x] Search vocabulary on both my CSV notes and https://www.etymonline.com/
 
 
 
@@ -39,7 +33,9 @@ pip install -r requirements.txt
 ### Switch between different config files
 
 - Write you own config file
-- Run main.py, it will let you choose config file (last choose will be storage in `config_main.cfg`)
+- Run main.py, input 'cfg' to switch config
+- Need to put one of the config files as placeholder in /config/config_parser.py line 15:
+  - conf='xxx' <= one of your config file here
 
 
 
@@ -93,50 +89,27 @@ back_i = int: 0
 
 
 
-## Notice
-
-- Do not use `sav` or `rev` function if csv has less than 10 words, use `sav2` instead
-	- hint: you can type `len` to check length of csv
-- Close output csv in excel, it will cause save problem (Notepad++ is ok)
-- Do not open two `main.py` and load two different csv
-
-
-
 ## Screenshot
-
-Switch from different config files
-
-<img src="./demo/04.png" alt="computer" width="50%" />
-
-
-
-Normal Review (ConEmu on Windows)
+Review (ConEmu on Windows)
 
 <img src="./demo/02.png" alt="computer" />
 
+<img src="./demo/07.png" alt="computer" width="80%" />
 
 
-Flash Card Review (WSL Ubuntu)
 
+Search
 <img src="./demo/06.png" alt="computer" width="80%" />
 
 
 
-On phone (Android Pydroid 3)
+Run on android (Pydroid 3)
 
 <img src="./demo/01.jpg" alt="phone" width="35%" />
 
 
 
-Typing with software (see /demo/03.mp4)
+Alongside with software (check /demo/03.mp4)
 
 <img height=320 src="./demo/03.gif" />
-
-
-
-Log file
-
-<img src="./demo/05.png" alt="computer" width="35%" />
-
-
 

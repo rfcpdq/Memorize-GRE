@@ -2,7 +2,6 @@
 # https://stackoverflow.com/questions/50885093/how-do-i-remove-rows-with-duplicate-values-of-columns-in-pandas-data-frame
 # https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/
 
-
 import os
 import pandas as pd
 from data_utils import file
@@ -32,7 +31,10 @@ class merge(object):
         target = pd.concat([target, temp])
         target = target.drop_duplicates(subset=['word'], keep='first')
         target.to_csv(self.PATH + '/inputs/' + self.target_merge,
-                      mode='w', header=True, index=False, encoding='utf-8')
+                      mode='w',
+                      header=True,
+                      index=False,
+                      encoding='utf-8')
         print('Done!')
         return 0
 
@@ -48,7 +50,10 @@ class merge(object):
             target = pd.concat([target, temp])
             target = target.drop_duplicates(subset=['word'], keep='first')
         target.to_csv(self.PATH + '/inputs/' + self.target_merge,
-                      mode='w', header=True, index=False, encoding='utf-8')
+                      mode='w',
+                      header=True,
+                      index=False,
+                      encoding='utf-8')
         print('Done!')
         return 0
 
@@ -58,11 +63,14 @@ class merge(object):
         target = file().load_data(dupl)
         target = target.drop_duplicates(subset=['word'], keep='first')
         target.to_csv(self.PATH + '/inputs/' + self.target_dupl,
-                      mode='w', header=True, index=False, encoding='utf-8')
+                      mode='w',
+                      header=True,
+                      index=False,
+                      encoding='utf-8')
         print('Done!')
         return 0
 
 
-# merge().merge_two()
+# merge().merge()
 # merge().merge_all()
 # merge().remove_duplicate()

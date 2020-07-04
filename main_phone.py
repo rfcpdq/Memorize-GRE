@@ -9,7 +9,6 @@ from config.cfg_parser import paraConfig
 from termcolor import cprint
 from tools import clear
 
-
 # load config
 all_voc = file().load_data()  # All.csv
 buffer_df = file().empty()  # buffer
@@ -27,19 +26,16 @@ print('=' * len(csv_print))
 print(csv_print)
 print('=' * len(csv_print))
 
-
 # import2 - phone
 import os
 from os import system, name
 import pandas as pd
 from function import func2
 
-
 # Greeting
 from pyfiglet import Figlet
 custom_fig = Figlet(font='contessa')  # italic / contessa / basic
 print(custom_fig.renderText('Let\'s go!'))
-
 
 start = True
 # file().save_rev(0, 1, phone=True)
@@ -68,8 +64,10 @@ while start:
     elif x == 'ss':
         insrch = True
         while insrch:
-            cprint('Search word (q to quit):', 'white',
-                   'on_magenta', attrs=['bold'])
+            cprint('Search word (q to quit):',
+                   'white',
+                   'on_magenta',
+                   attrs=['bold'])
             y = input() or ''
             # target_csv = file().load_data(target_merge)
             insrch = func2(all_voc).search(y)
@@ -77,8 +75,11 @@ while start:
     # ===== review (start with '1') =====
     elif x == 'rev':
         clear()
-        target_csv = file().load_data(target_csv_name)
-        func2(target_csv).rev_custom(0, 10)
+        if len(target_csv.index) < 10:
+            print('Less than 10 values')
+            func2(target_csv).rev_custom(1, 10)
+        else:
+            func2(target_csv).rev_custom(0, 10)
         cprint('Rev Done!', 'white', 'on_magenta', attrs=['bold'])
 
     elif x[:2] == 'r-':
@@ -123,11 +124,11 @@ while start:
 
     elif x == 'cfg':
         update_cfg().change_main_cfg()
-    
+
         all_voc = file().load_data()
         buffer_df = file().empty()  # buffer
         cfg_name = paraConfig().main_cfg()
-        
+
         cfg_func = paraConfig(cfg_name, section=1).get_cfg()
         target_csv_name = cfg_func['out_name']
         use_adb = cfg_func['use_adb']

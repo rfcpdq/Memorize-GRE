@@ -1,6 +1,5 @@
 # https://hackernoon.com/4-ways-to-manage-the-configuration-in-python-4623049e841b
 
-
 import os
 import pandas as pd
 from termcolor import colored, cprint
@@ -33,6 +32,7 @@ class func(cfg):
         if x in self.source.word.values:
             x = self.source.loc[self.source.word == x]
             for col in self.col[1:]:
+                cprint(col, 'magenta', attrs=['underline'])
                 print(display(x[col]))
             self.target = self.target.append(x)
             print('\n')
@@ -43,6 +43,7 @@ class func(cfg):
         else:
             temp_li = [x]
             for col in self.col[1:]:
+                # cprint(col, 'magenta', attrs=['underline'])
                 cprint('Add {} (N to cancel):'.format(col), 'green')
                 temp_elem = input() or ''
                 if temp_elem == 'n' or temp_elem == 'N':
@@ -69,7 +70,9 @@ class func(cfg):
         cfg.back_i += 1
         return name
 
-        import pdb; pdb.set_trace()  # XXX BREAKPOINT
+        import pdb
+        pdb.set_trace()  # XXX BREAKPOINT
+
 
 class func2(cfg):
     def __init__(self, source):
@@ -79,6 +82,7 @@ class func2(cfg):
         if x in self.source.word.values:
             x = self.source.loc[self.source.word == x]
             for col in self.col[1:]:
+                cprint(col, 'magenta', attrs=['underline'])
                 print(display(x[col]))
             print('\n')
             # cprint('Find!', 'green', attrs=['bold'])
@@ -88,6 +92,17 @@ class func2(cfg):
         else:
             cprint('\nNot Find!', 'green', attrs=['bold'])
             return True
+
+    def show_position(self, block, rev_prosition, total_len):
+        total_rev = ceil(total_len / block)
+        rev_prosition = int(rev_prosition)
+        part_prosition = '+ Position:' + \
+            str(rev_prosition) + '/' + str(total_rev) + ' +'
+        print('\n')
+        cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
+        cprint(part_prosition, 'green', 'on_grey', attrs=['bold'])
+        cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
+        print('\n')
 
     # custom can be used shuffle r-x review
     def rev_func(self, rev_start, rev_end, banner=True, custom=False):
@@ -106,20 +121,9 @@ class func2(cfg):
             x = self.source.iloc[i]
             cprint(x[self.col[0]], 'red', attrs=['bold', 'underline'])
             for col in self.col[1:]:
+                cprint(col, 'magenta', attrs=['underline'])
                 print(x[col])
-
             print('\n')
-
-    def show_position(self, block, rev_prosition, total_len):
-        total_rev = ceil(total_len / block)
-        rev_prosition = int(rev_prosition)
-        part_prosition = '+ Position:' + \
-            str(rev_prosition) + '/' + str(total_rev) + ' +'
-        print('\n')
-        cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
-        cprint(part_prosition, 'green', 'on_grey', attrs=['bold'])
-        cprint('+' * len(part_prosition), 'green', 'on_grey', attrs=['bold'])
-        print('\n')
 
     def rev_custom(self, rev_prosition, block=60, rand=False):
         # rev 60 words each time, print review precision (12/15)
@@ -173,28 +177,36 @@ class func2(cfg):
             v = self.source.loc[self.source.word == x]
             cprint(display(v[self.col[0]]), 'red', attrs=['bold', 'underline'])
             for col in self.col[1:]:
+                cprint(col, 'magenta', attrs=['underline'])
                 print(display(v[col]))
             print('\n')
-            
+
             print(cfg.col)
-            mod = input('Modify?(input number to modify specific column)\n') or ''
+            mod = input(
+                'Modify?(input number to modify specific column)\n') or ''
             if mod == 'n' or mod == 'N':
                 return
             elif mod.isnumeric():
                 while mod != 'q':
                     mod_col = cfg.col[int(mod)]
-                    cprint('\nModify ' + mod_col + ' as:', 'red', attrs=['bold', 'underline'])
+                    cprint('\nModify ' + mod_col + ' as:',
+                           'red',
+                           attrs=['bold', 'underline'])
                     temp_str = modify(str(v[mod_col].values[0]))
                     print(repr(temp_str))
-                    confirm_mod = input('Confirm? (n to reinput, q to exit)\n') or ''
+                    confirm_mod = input(
+                        'Confirm? (n to reinput, q to exit)\n') or ''
                     if confirm_mod == 'n' or confirm_mod == 'N':
                         return
                     elif confirm_mod == 'q':
                         return
                     else:
-                        self.source.loc[self.source.word == x, mod_col] = temp_str
+                        self.source.loc[self.source.word == x,
+                                        mod_col] = temp_str
                         csv_dir = '/inputs/'
-                        self.source.to_csv(cfg.PATH + csv_dir + cfg.out_name, index=False, encoding='utf-8')
+                        self.source.to_csv(cfg.PATH + csv_dir + cfg.out_name,
+                                           index=False,
+                                           encoding='utf-8')
                         cprint('Done!', 'white', 'on_magenta', attrs=['bold'])
                         return
             else:
@@ -229,7 +241,8 @@ class func2(cfg):
                     break
                 elif x == 'm':
                     # update_remember(self.source, rev_start)
-                    if pd.isnull(self.source.iloc[-(rev_start + 1)].remember) == True:
+                    if pd.isnull(self.source.iloc[-(rev_start +
+                                                    1)].remember) == True:
                         mark_list[i] = 1
                     else:
                         mark_list[i] = int(
@@ -273,7 +286,8 @@ class func2(cfg):
                     break
                 elif x == 'm':
                     # update_remember(self.source, rev_start)
-                    if pd.isnull(self.source.iloc[-(rev_start + 1)].remember) == True:
+                    if pd.isnull(self.source.iloc[-(rev_start +
+                                                    1)].remember) == True:
                         mark_list[i] = 1
                     else:
                         mark_list[i] = int(
@@ -282,4 +296,3 @@ class func2(cfg):
                 else:
                     i += 1
                 cprint('==================================\n', 'magenta')
-

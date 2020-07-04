@@ -23,8 +23,7 @@ class file(object):
         csv_dir = '/inputs/'
         if folder != 1:
             csv_dir = csv_dir + str(folder)
-        source = pd.read_csv(self.PATH + csv_dir +
-                             name, encoding='utf-8')
+        source = pd.read_csv(self.PATH + csv_dir + name, encoding='utf-8')
         return source
 
     def save_csv(self, target, out_name, folder=1):
@@ -32,7 +31,10 @@ class file(object):
         if folder != 1:
             csv_dir = csv_dir + str(folder)
         target.to_csv(self.PATH + csv_dir + out_name,
-                      mode='a', header=False, index=False, encoding='utf-8')
+                      mode='a',
+                      header=False,
+                      index=False,
+                      encoding='utf-8')
 
     def save_rev(self, rev, time=0, phone=False):
         csv_dir = '/oth/'

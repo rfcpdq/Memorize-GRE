@@ -52,7 +52,6 @@ def adb_func(move):
     output, error = process.communicate()
 
 
-
 def modify(string):
     EDITOR = os.environ.get('EDITOR', 'vim')
     # string = "Hi~ How are you"
@@ -69,4 +68,3 @@ def modify(string):
         new_str = new_str.rstrip("\n")
         # print(repr(new_str))
         return new_str
-
